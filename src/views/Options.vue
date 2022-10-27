@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
 
-    <h3>Our Products List Todos!</h3>
+    <h3>Our Products {{ todosCount }} Todos!</h3>
     <div>
       <input
         v-model="newTodoName"
@@ -41,7 +41,13 @@ export default {
           name: "Three",
         },
       ],
+      swearewords: ["oil", "sugar", "rice"],
     };
+  },
+  computed: {
+    todosCount() {
+      return this.todos.length;
+    },
   },
   methods: {
     addTodo() {
@@ -54,6 +60,14 @@ export default {
     },
     deleteTodo(index) {
       this.todos.splice(index, 1);
+    },
+  },
+  watch: {
+    newTodoName(newValue) {
+      if (this.swearewords.includes(newValue.toLowerCase())) {
+        this.newTodoName = "";
+        alert("you must NEVER say " + newValue + "!!");
+      }
     },
   },
 };
